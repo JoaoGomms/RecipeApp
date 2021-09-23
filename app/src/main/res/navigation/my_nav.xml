@@ -8,16 +8,31 @@
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.portifolio.recipeapp.fragments.list.RecipeListFragment"
-        android:label="fragment_recipe_list"
-        tools:layout="@layout/fragment_recipe_list" />
+        android:label="Lista de Receitas"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_favoriteListFragment"
+            app:destination="@id/favoriteListFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_dailyJokeFragment"
+            app:destination="@id/dailyJokeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteListFragment"
         android:name="com.portifolio.recipeapp.fragments.list.FavoriteListFragment"
-        android:label="fragment_favorite_list"
-        tools:layout="@layout/fragment_favorite_list" />
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favorite_list" >
+        <action
+            android:id="@+id/action_favoriteListFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dailyJokeFragment"
         android:name="com.portifolio.recipeapp.fragments.joke.DailyJokeFragment"
-        android:label="fragment_daily_joke"
-        tools:layout="@layout/fragment_daily_joke" />
+        android:label="Joke"
+        tools:layout="@layout/fragment_daily_joke" >
+        <action
+            android:id="@+id/action_dailyJokeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </fragment>
 </navigation>
