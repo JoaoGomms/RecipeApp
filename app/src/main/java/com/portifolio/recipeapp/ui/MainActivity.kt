@@ -1,4 +1,4 @@
-package com.portifolio.recipeapp
+package com.portifolio.recipeapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.portifolio.recipeapp.R
 import com.portifolio.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
