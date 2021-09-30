@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.portifolio.recipeapp.adapters.RecipesAdapter
 import com.portifolio.recipeapp.databinding.FragmentRecipeListBinding
-import com.portifolio.recipeapp.util.Constants.Companion.API_KEY
 import com.portifolio.recipeapp.util.NetworkResult
 import com.portifolio.recipeapp.viewmodel.MainViewModel
+import com.portifolio.recipeapp.viewmodel.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,8 @@ class RecipeListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val recipesAdapter by lazy { RecipesAdapter() }
-    private val viewModel : MainViewModel by viewModels()
+    private val mainViewModel : MainViewModel by viewModels()
+    private val recipesViewModel : RecipesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +39,8 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun requestApiData(){
-        viewModel.getRecipes(applyQueries())
-        viewModel.getRecipesResponse().observe(viewLifecycleOwner, {
+        mainViewModel.getRecipes(recipesViewModel.applyQueries())
+        mainViewModel.getRecipesResponse().observe(viewLifecycleOwner, {
             response -> when(response){
                 is NetworkResult.Success -> {
                     hideShimmerEffect()
@@ -54,19 +55,6 @@ class RecipeListFragment : Fragment() {
                 }
             }
         })
-    }
-
-    private fun applyQueries(): HashMap<String, String>{
-        val queries: HashMap<String, String> = HashMap()
-
-        queries["number"] = "50"
-        queries["apiKey"] = API_KEY
-        queries["type"] = "snack"
-        queries["diet"] = "vegan"
-        queries["addRecipeInformation"] = "true"
-        queries["fillIngredients"] = "true"
-
-        return queries
     }
 
 
