@@ -41,7 +41,7 @@ data class Result(
     val title: String,
 
     @SerializedName("vegan")
-    val vegan: String,
+    val vegan: Boolean,
 
 
 
