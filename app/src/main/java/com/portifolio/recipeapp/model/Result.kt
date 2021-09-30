@@ -34,10 +34,15 @@ data class Result(
     @SerializedName("sourceUrl")
     val sourceUrl: String,
 
-    @SerializedName("sumary")
-    val sumary: String,
+    @SerializedName("summary")
+    val summary: String,
 
     @SerializedName("title")
     val title: String,
 
-)
+    @SerializedName("vegan")
+    val vegan: String,
+
+
+
+    )

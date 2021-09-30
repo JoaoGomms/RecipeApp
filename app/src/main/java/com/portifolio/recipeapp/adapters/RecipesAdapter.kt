@@ -36,9 +36,9 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentResult = recipesList[position]
+        val currentRecipe = recipesList[position]
 
-        holder.bind(currentResult)
+        holder.bind(currentRecipe)
 
     }
 
