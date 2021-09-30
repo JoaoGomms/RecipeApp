@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.portifolio.recipeapp.data.Repository
@@ -22,7 +23,11 @@ class MainViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
 
-    private var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    private var _recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+
+    fun getRecipesResponse(): LiveData<NetworkResult<FoodRecipe>> {
+        return _recipesResponse
+    }
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)
@@ -30,7 +35,7 @@ class MainViewModel @Inject constructor(
 
     private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
 
-        recipesResponse.value = NetworkResult.Loading()
+        _recipesResponse.value = NetworkResult.Loading()
 
         if (hasInternetConnection()) {
 
@@ -38,16 +43,16 @@ class MainViewModel @Inject constructor(
 
                 val response = repository.remote.getRecipes(queries)
 
-                recipesResponse.value = handleFoodRecipesResponse(response)
+                _recipesResponse.value = handleFoodRecipesResponse(response)
 
             } catch (e: Exception) {
 
-                recipesResponse.value = NetworkResult.Error("Recipes Not Found")
+                _recipesResponse.value = NetworkResult.Error("Recipes Not Found")
 
             }
 
         } else {
-            recipesResponse.value = NetworkResult.Error("No Internet Connection.")
+            _recipesResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 
