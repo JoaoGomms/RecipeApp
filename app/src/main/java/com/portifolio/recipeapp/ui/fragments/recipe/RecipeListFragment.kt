@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.portifolio.recipeapp.adapters.RecipesAdapter
 import com.portifolio.recipeapp.databinding.FragmentRecipeListBinding
 import com.portifolio.recipeapp.util.NetworkResult
+import com.portifolio.recipeapp.util.observeOnce
 import com.portifolio.recipeapp.viewmodel.MainViewModel
 import com.portifolio.recipeapp.viewmodel.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +52,7 @@ class RecipeListFragment : Fragment() {
 
     private fun readDatabase() {
        lifecycleScope.launch{
-           mainViewModel.readRecipes.observe(viewLifecycleOwner, { database ->
+           mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, { database ->
                if (database.isNotEmpty()) {
                    Log.d("RecipesListFragment", "Database Called")
                    recipesAdapter.setData(database[0].foodRecipe)
