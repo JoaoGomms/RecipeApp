@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_recipeListFragment_to_dailyJokeFragment"
             app:destination="@id/dailyJokeFragment" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipesBottomSheet"
+            app:destination="@id/recipesBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/favoriteListFragment"
@@ -35,4 +38,13 @@
             android:id="@+id/action_dailyJokeFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/recipesBottomSheet"
+        android:name="com.portifolio.recipeapp.ui.fragments.recipe.bottomsheet.RecipesBottomSheet"
+        android:label="recipes_bottom_sheet"
+        tools:layout="@layout/recipes_bottom_sheet" >
+        <action
+            android:id="@+id/action_recipesBottomSheet_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
+    </dialog>
 </navigation>

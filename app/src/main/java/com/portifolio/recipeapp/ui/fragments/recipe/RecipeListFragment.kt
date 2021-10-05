@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.portifolio.recipeapp.adapters.RecipesAdapter
 import com.portifolio.recipeapp.databinding.FragmentRecipeListBinding
@@ -35,10 +36,16 @@ class RecipeListFragment : Fragment() {
     ): View {
 
         _binding = FragmentRecipeListBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
 
         setupRecyclerView()
-
         readDatabase()
+
+        binding.recipesFab.setOnClickListener{
+            val toRecipesBottom = RecipeListFragmentDirections.actionRecipeListFragmentToRecipesBottomSheet()
+            findNavController().navigate(toRecipesBottom)
+        }
 
         return binding.root
     }
@@ -106,4 +113,8 @@ class RecipeListFragment : Fragment() {
         binding.shimmerRecyclerView.hideShimmer()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
