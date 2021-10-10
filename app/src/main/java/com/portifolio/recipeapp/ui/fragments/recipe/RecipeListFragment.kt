@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.portifolio.recipeapp.adapters.RecipesAdapter
 import com.portifolio.recipeapp.databinding.FragmentRecipeListBinding
@@ -25,6 +26,8 @@ class RecipeListFragment : Fragment() {
 
     private var _binding: FragmentRecipeListBinding? = null
     private val binding get() = _binding!!
+
+    private val args by navArgs<RecipeListFragmentArgs>()
 
     private val recipesAdapter by lazy { RecipesAdapter() }
     private val mainViewModel: MainViewModel by viewModels()
@@ -60,7 +63,7 @@ class RecipeListFragment : Fragment() {
     private fun readDatabase() {
        lifecycleScope.launch{
            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, { database ->
-               if (database.isNotEmpty()) {
+               if (database.isNotEmpty() && !args.backFromBBottomSheet) {
                    Log.d("RecipesListFragment", "Database Called")
                    recipesAdapter.setData(database[0].foodRecipe)
                    hideShimmerEffect()
